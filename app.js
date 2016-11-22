@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-
+var port = process.env.PORT || 3000;
 app.use(express.static(__dirname + '/client/production'));
 var main = require('./server/app');
 
@@ -19,7 +19,7 @@ io.sockets.on('connection',function(socket){
         });
     });
 });
-app.set('port',(process.env.PORT || 3000));
-app.listen(app.get('port'),function(){
-    console.log("Server is running at :", app.get('port'));
+
+server.listen(port,function(){
+    console.log("Server is running at :", port);
 })
