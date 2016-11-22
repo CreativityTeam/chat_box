@@ -70,7 +70,7 @@
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     <script>
       $(document).ready(function(){
-          var socket = io.connect("https://chatboxs.herokuapp.com/");
+          var socket = io.connect(window.location.hostname);
           $("#modalID_excep1").modal();
           $("#modalID_excep2").modal();
           $(".content").hide();
