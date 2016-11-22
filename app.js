@@ -19,7 +19,7 @@ io.sockets.on('connection',function(socket){
         });
     });
 });
-
-server.listen(3000,function(){
-  console.log('Server is running at port : ' + 3000)  
-});
+app.set('port',(process.env.PORT || 3000));
+app.listen(app.get('port'),function(){
+    console.log("Server is running at :", app.get('port'));
+})
