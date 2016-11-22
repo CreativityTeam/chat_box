@@ -1,8 +1,9 @@
 var express = require('express');
 var app = express();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
 var port = process.env.PORT || 3000;
+var server = require('http').Server(app).listen(port);
+var io = require('socket.io')(server);
+
 app.use(express.static(__dirname + '/client/production'));
 var main = require('./server/app');
 
@@ -24,7 +25,3 @@ io.sockets.on('connection',function(socket){
         });
     });
 });
-
-server.listen(port,function(){
-    console.log("Server is running at :", port);
-})
