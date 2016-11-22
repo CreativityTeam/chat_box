@@ -9,11 +9,6 @@ var main = require('./server/app');
 
 app.use('/server',main);
 
-io.configure(function () {  
-  io.set("transports", ["xhr-polling"]); 
-  io.set("polling duration", 10); 
-});
-
 io.sockets.on('connection',function(socket){
     socket.on("send_user",function(data){
         socket.user_name = data;
