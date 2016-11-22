@@ -1,0 +1,23 @@
+{
+  "name": "chatbox",
+  "version": "1.0.0",
+  "description": "Design Chat box where everyone can chat to everyone",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [
+    "Chat",
+    "Box"
+  ],
+  "author": "Nhat Nguyen",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.14.0",
+    "gulp": "^3.9.1",
+    "gulp-connect": "^5.0.0",
+    "gulp-jade": "^1.1.0",
+    "gulp-sass": "^2.3.2",
+    "socket.io": "^1.6.0"
+  }
+}

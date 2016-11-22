@@ -1,0 +1,82 @@
+html
+    head
+        title Creativity App || Realtime || Chat Box
+        link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css")
+        link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css")
+        link(rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons")
+        link(rel="stylesheet",href="css/style.css")
+    body
+        div
+            div(class="navbar-fixed")
+                nav
+                    div(class="container")
+                        a(class="brand-logo flow-text") Creativity Apps
+                        div(class="nav-wrapper")
+                            //ul(id="nav-mobile" class ="right hide-on-med-and-down")
+                                li 
+                                    a Home
+                                li
+                                    a About
+            div(class="container content")
+                div(class="row") 
+                    h1
+                        span(class="fa fa-bars")
+                        |  Chat Box
+                div(id="main_chat" class="row")
+                div(class="row")
+                    form
+                        div(class="row")
+                            div(class="input-field col s12")
+                                input(id="chat_nichname" placeholder="Nich name" type="text")
+                                input(id="chat_content" placeholder="Chat content" type="text")
+            footer(class="page-footer")
+                div(class="container")
+                    div(class="row")
+                        div(class="col 16 s12")
+                            h4(class="white-text flow-text") Contact
+                            p(class="grey-text text-lighten-4") Contact us if you wanna make wonderfull Web App and Mobile App
+                div(class="footer-copyright")
+                    div(class="container") 2016 Created by Creativity Apps
+            div(id="modalID_excep1" class="modal")
+                div(class="modal-content")
+                    h4 Chat Exception
+                    |Please type username and password!!! 
+                div(class="modal-footer")
+                    a(id="modalButton" class="modal-action modal-close waves-effect waves-light btn") Close
+            div(id="modalID_excep2" class="modal")
+                div(class="modal-content")
+                    h4 Chat Exception
+                    |Please type something that you can beat everyone!!! 
+                div(class="modal-footer")
+                    a(id="modalButton" class="modal-action modal-close waves-effect waves-light btn") Close
+        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js")
+        script(src="https://cdn.socket.io/socket.io-1.4.5.js")
+        script.
+            $(document).ready(function(){
+                var socket = io.connect();
+                $("#modalID_excep1").modal();
+                $("#modalID_excep2").modal();
+                $(".content").hide();
+                $(".content").fadeIn(5000);
+                $(document).keypress(function(e){
+                    var username = $("#chat_nichname").val();
+                    var content = $("#chat_content").val();
+                    if(e.keyCode == 13){
+                        if(username == "" && content == ""){
+                            $("#modalID_excep1").modal('open');
+                        }else if(content == ""){
+                            $("#modalID_excep2").modal('open');
+                        }else{
+                            socket.emit("send_user",username);
+                            socket.emit("send_message",content);
+                            $("#chat_nichname").prop('disabled', true);
+                            $("#chat_content").val("");
+                        }
+                    }
+                });
+
+                socket.on("res_chat",function(data){
+                    $("#main_chat").append(data._user + " : " + data._msgContent + "<br>");
+                });   
+            });
